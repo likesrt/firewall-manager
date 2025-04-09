@@ -1,0 +1,152 @@
+/* static/css/main.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #f5f7fa;
+}
+
+#app {
+    height: 100vh;
+}
+
+.el-container {
+    height: 100%;
+}
+
+.el-aside {
+    background-color: #304156;
+    color: #fff;
+}
+
+.el-menu {
+    border-right: none;
+}
+
+.el-menu-vertical {
+    height: 100%;
+    background-color: #304156;
+}
+
+.el-menu-item {
+    color: #bfcbd9;
+}
+
+.el-menu-item.is-active {
+    color: #409EFF;
+}
+
+.el-menu-item:hover {
+    background-color: #263445;
+}
+
+.el-header {
+    background-color: #fff;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    padding: 0 20px;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.el-main {
+    background-color: #f5f7fa;
+    padding: 20px;
+}
+
+.card-container {
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #2d3a4b;
+}
+
+.login-card {
+    width: 400px;
+}
+
+.login-header {
+    text-align: center;
+}
+
+.login-header h2 {
+    margin: 0;
+    color: #409EFF;
+}
+
+.el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+}
+
+.table-operations {
+    margin-bottom: 20px;
+}
+
+.table-operations .el-button {
+    margin-right: 10px;
+}
+
+.status-tag {
+    margin-right: 10px;
+}
+
+.log-filter {
+    margin-bottom: 20px;
+}
+
+.log-filter .el-form-item {
+    margin-bottom: 10px;
+}
+
+.rule-form .el-form-item {
+    margin-bottom: 15px;
+}
+
+.backup-list {
+    margin-top: 20px;
+}
+
+.backup-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ebeef5;
+}
+
+.backup-info {
+    flex-grow: 1;
+}
+
+.backup-actions {
+    display: flex;
+}
+
+.backup-actions .el-button {
+    margin-left: 10px;
+}

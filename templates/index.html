@@ -1,0 +1,103 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防火墙管理系统</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <div id="app">
+        <el-container v-if="isLoggedIn">
+            <el-aside width="200px">
+                <!-- 侧边栏导航 -->
+                <el-menu default-active="1" class="el-menu-vertical" :router="true">
+                    <el-menu-item index="/rules"><i class="el-icon-menu"></i>规则管理</el-menu-item>
+                    <el-menu-item index="/status"><i class="el-icon-monitor"></i>状态监控</el-menu-item>
+                    <el-menu-item index="/logs"><i class="el-icon-document"></i>日志分析</el-menu-item>
+                    <el-menu-item index="/settings"><i class="el-icon-setting"></i>系统设置</el-menu-item>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <el-header>
+                    <!-- 顶部导航栏 -->
+                    <div class="header-title">VPS防火墙管理系统</div>
+                    <div class="header-controls">
+                        <el-switch v-model="firewallEnabled"
+                                  active-text="防火墙已启用"
+                                  inactive-text="防火墙已禁用"
+                                  @change="toggleFirewall"></el-switch>
+                        <el-dropdown @command="handleCommand" style="margin-left: 20px;">
+                            <span class="el-dropdown-link">
+                                {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="profile">个人设置</el-dropdown-item>
+                                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </div>
+                </el-header>
+                <el-main>
+                    <!-- 主内容区域 - 通过Vue Router加载不同组件 -->
+                    <router-view></router-view>
+                </el-main>
+            </el-container>
+        </el-container>
+
+        <!-- 登录页面 -->
+        <div v-else class="login-container">
+            <el-card class="login-card">
+                <div slot="header" class="login-header">
+                    <h2>防火墙管理系统</h2>
+                </div>
+                <el-form :model="loginForm" ref="loginForm" :rules="loginRules">
+                    <el-form-item prop="username">
+                        <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="el-icon-user"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input v-model="loginForm.password" type="password" placeholder="密码" prefix-icon="el-icon-lock"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="login" style="width: 100%;" :loading="loginLoading">登录</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-card>
+        </div>
+
+        <!-- 个人设置对话框 -->
+        <el-dialog title="个人设置" :visible.sync="profileDialogVisible" width="400px">
+            <el-form :model="profileForm" ref="profileForm" :rules="profileRules">
+                <el-form-item label="用户名" prop="username">
+                    <el-input v-model="profileForm.username" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="新密码" prop="password">
+                    <el-input v-model="profileForm.password" type="password"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="confirmPassword">
+                    <el-input v-model="profileForm.confirmPassword" type="password"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-checkbox v-model="profileForm.regenerateApiKey">重新生成API密钥</el-checkbox>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="profileDialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="updateProfile">确定</el-button>
+            </span>
+        </el-dialog>
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="/static/js/components.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

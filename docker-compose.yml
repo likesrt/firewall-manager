@@ -1,0 +1,42 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./:/app
+      - /var/log/iptables:/var/log/iptables:ro
+      - /var/log/nftables:/var/log/nftables:ro
+    cap_add:
+      - NET_ADMIN
+#    depends_on:
+#      - db
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=your-secret-key-here  # 密钥
+      - DEBUG=true  # 调试模式
+      - DEFAULT_ADMIN_PASSWORD=admin123  # 默认管理员密码
+      # 邮件配置
+      - MAIL_SERVER=smtp.gmail.com
+      - MAIL_PORT=587
+      - MAIL_USE_TLS=true
+      - MAIL_USE_SSL=false
+      - MAIL_USERNAME=your-email@gmail.com
+      - MAIL_PASSWORD=your-email-password
+      - MAIL_DEFAULT_SENDER=your-email@gmail.com
+      # 数据库配置
+      - SQLALCHEMY_DATABASE_URI=postgresql://testfirewall:f4JCRTfxkeAcpYfY@192.168.2.10:5432/testfirewall
+      - SQLALCHEMY_TRACK_MODIFICATIONS=False
+
+#  db:
+#    image: postgres:17.2-alpine
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_USER=firewall
+#      - POSTGRES_PASSWORD=securepassword
+#      - POSTGRES_DB=firewall_manager
+#    restart: unless-stopped
+#
+#volumes:
+#  postgres_data:
